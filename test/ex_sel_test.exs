@@ -44,4 +44,16 @@ defmodule ExSelTest do
       assert {^result, _} = Code.eval_string(exp)
     end)
   end
+
+  test "boolean expression ast" do
+    assert ExSel.bexpr("foo == TRUE") == {:ok, {:==, [{:var, "foo"}, true]}}
+
+    assert ExSel.bexpr("foo == FALSE && bar == TRUE") ==
+             {:ok,
+              {:&&,
+               [
+                 {:==, [{:var, "foo"}, false]},
+                 {:==, [{:var, "bar"}, true]}
+               ]}}
+  end
 end

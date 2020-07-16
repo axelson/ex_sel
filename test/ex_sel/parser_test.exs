@@ -19,7 +19,9 @@ defmodule ExSel.ParserTest do
 
     test "return ok/error for boolean literals" do
       assert true == vexpr("true")
+      assert true == vexpr("TRUE")
       assert false == vexpr("false")
+      assert false == vexpr("FALSE")
       assert {:error, @err, "False"} == vexpr("False")
     end
 

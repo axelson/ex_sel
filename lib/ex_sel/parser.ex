@@ -5,7 +5,7 @@ defmodule ExSel.Parser do
 
   # Value expressions
 
-  # <vexpr_bool> ::= "true" | "false"
+  # <vexpr_bool> ::= "true" | "false" | "TRUE" | "FALSE"
   # <vexpr_num>  ::= <int> | <float>
   # <int>        ::= ["-"]<digit>{<digit>}
   # <float>      ::= ["-"]<digit>{<digit>}"."<digit>{<digit>}
@@ -15,10 +15,10 @@ defmodule ExSel.Parser do
   # <lc_letter>  ::= "a".."z"
   # <uc_letter>  ::= "A".."Z"
 
-  @reserved_sym ["true", "false"]
+  @reserved_sym ["true", "false", "TRUE", "FALSE"]
 
-  true_ = "true" |> string() |> replace(true)
-  false_ = "false" |> string() |> replace(false)
+  true_ = choice([string("true"), string("TRUE")]) |> replace(true)
+  false_ = choice([string("false"), string("FALSE")]) |> replace(false)
   vexpr_bool = [true_, false_] |> choice() |> label("boolean")
   digits = [?0..?9] |> ascii_string(min: 1) |> label("digits")
 
