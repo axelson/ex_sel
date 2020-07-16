@@ -151,7 +151,7 @@ defmodule ExSel.Parser do
   gte = string(">=") |> replace(:>=)
   lt = string("<") |> replace(:<)
   lte = string("<=") |> replace(:<=)
-  eq = string("==") |> replace(:==)
+  eq = choice([string("=="), string("=")]) |> replace(:==)
   neq = string("!=") |> replace(:!=)
 
   # <aexpr> <ord_op> <aexpr>

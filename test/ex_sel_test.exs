@@ -46,6 +46,8 @@ defmodule ExSelTest do
   end
 
   test "boolean expression ast" do
+    assert ExSel.bexpr("foo = TRUE") == {:ok, {:==, [{:var, "foo"}, true]}}
+
     assert ExSel.bexpr("foo == TRUE") == {:ok, {:==, [{:var, "foo"}, true]}}
 
     assert ExSel.bexpr("foo == FALSE && bar == TRUE") ==
